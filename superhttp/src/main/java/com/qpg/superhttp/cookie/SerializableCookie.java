@@ -2,6 +2,7 @@ package com.qpg.superhttp.cookie;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import io.github.pixee.security.ObjectInputFilters;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -133,6 +134,7 @@ public class SerializableCookie implements Serializable {
         Cookie cookie = null;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            ObjectInputFilters.enableObjectFilterIfUnprotected(objectInputStream);
             cookie = ((SerializableCookie) objectInputStream.readObject()).getCookie();
         } catch (Exception e) {
         }
